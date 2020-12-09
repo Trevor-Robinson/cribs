@@ -39,6 +39,36 @@ class House
       house_area += room.area
     end
     return house_area
-  end  
+  end
 
+  def details
+    house_details = Hash.new
+    house_details["price"] = @price
+    house_details["address"] = @address
+    return house_details
+  end
+
+  def price_per_square_foot
+    (@price.to_f / area).round(2)
+  end
+
+  def rooms_sorted_by_area
+    sorted = []
+    sorted << rooms.sort_by do |room|
+      room.area
+    end
+    sorted.flatten!.reverse
+  end
+
+  def rooms_by_category
+    room_types = []
+    rooms.each do |check|
+      room_types << check.category
+    end
+    room_types.uniq.flatten!
+    rooms_by_type = Hash.new
+    rooms_by_type[room_types.map { |key, value| }] = rooms
+    # rooms_by_type[room_types.collect { |roomtype| [roomtype, ''] } ]
+    return rooms_by_type
+  end
 end
